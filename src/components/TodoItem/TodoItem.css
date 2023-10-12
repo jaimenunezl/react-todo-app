@@ -1,0 +1,55 @@
+li {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 500px;
+  margin: 5px 0px;
+
+  .checkbox {
+    padding: 5px;
+    background-color: #4286f4;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+  }
+
+  .checkbox:hover {
+    cursor: pointer;
+    background-color: #1e8e3e;
+  }
+
+  .text {
+    font-size: 1.2rem;
+    margin: 0px 10px;
+    flex-grow: 1;
+  }
+}
+
+li.completed {
+  opacity: 0.5;
+
+  .checkbox {
+    background-color: #1e8e3e;
+  }
+
+  .text {
+    text-decoration: line-through;
+  }
+}
+
+.close {
+  background-color: #f44336;
+  color: white;
+  font-size: 0.8rem;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 0px;
+  margin-left: 10px;
+  font-weight: 600;
+}
+
+.close:hover {
+  background-color: #d32f2f;
+  cursor: pointer;
+}
