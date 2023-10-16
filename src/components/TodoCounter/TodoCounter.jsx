@@ -3,9 +3,14 @@ import './TodoCounter.css';
 function TodoCounter({ total, completed }) {
   return (
     <>
-      <h3>
-        Has completado {completed} de {total} TODOs
-      </h3>
+      {completed >= total ? (
+        <h3>¡Muy bien hecho! Ahora, disfruta de la tarde libre. 💃</h3>
+      ) : (
+        <h3>
+          Has completado {completed} de {total}{' '}
+          {total === 1 ? 'tarea' : 'tareas'}
+        </h3>
+      )}
     </>
   );
 }

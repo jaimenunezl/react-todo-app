@@ -9,11 +9,17 @@ import {
   TodoSearch,
 } from './components';
 
+import { useDB } from './hooks';
+
+import { TODO_LIST_V1 } from './const';
+
 import './App.css';
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
-
+  const { item: todoList, updateItem: updateTodoList } = useDB(
+    TODO_LIST_V1,
+    []
+  );
   const [searchValue, setSearchValue] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,7 +29,7 @@ function App() {
 
   const handleRemoveTodo = (id) => {
     const newList = todoList.filter(({ id: todoId }) => todoId !== id);
-    setTodoList(newList);
+    updateTodoList(newList);
   };
 
   const handleCompleteTodo = (id) => {
@@ -34,7 +40,7 @@ function App() {
       return todo;
     });
 
-    setTodoList(listEdited);
+    updateTodoList(listEdited);
   };
 
   const handleAddTodo = (text) => {
@@ -49,7 +55,7 @@ function App() {
       completed: false,
     };
     const newList = [newTodo, ...todoList];
-    setTodoList(newList);
+    updateTodoList(newList);
     handleCloseModal();
   };
 
@@ -68,7 +74,10 @@ function App() {
             <h1>TODO List</h1>
           </header>
 
-          <TodoSearch handleSearchValue={handleSearchValue} />
+          <TodoSearch
+            searchValue={searchValue}
+            handleSearchValue={handleSearchValue}
+          />
 
           <TodoCounter
             completed={todoList.filter(({ completed }) => completed).length}
@@ -80,8 +89,8 @@ function App() {
               .filter(({ text }) =>
                 text.toLowerCase().includes(searchValue.toLowerCase())
               )
-              .sort((a, b) => a.text - b.text)
               .sort((a, b) => a.completed - b.completed)
+              .sort((a, b) => a.text - b.text)
               .map(({ id, text, completed }) => (
                 <TodoItem
                   key={id}
