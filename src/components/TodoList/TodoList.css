@@ -1,13 +1,13 @@
 .list-container {
-  padding: 20px 20px 50px;
   display: flex;
   justify-content: center;
   background-color: #f6f8fc;
   flex-grow: 1;
   width: 100%;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
+  border-radius: 30px;
   overflow: auto;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 ul {
@@ -15,5 +15,13 @@ ul {
   margin: 10px 0px;
   display: flex;
   flex-direction: column;
-  align-content: center;
+  width: 100%;
+  gap: 10px;
+  padding: 0px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .list-container {
+    background-color: var(--background);
+  }
 }

@@ -1,15 +1,15 @@
-button {
-  background-color: #4286f4;
+.open-modal-button {
   border: 0px;
-  color: white;
   font-size: 1rem;
   padding: 8px 10px;
   border-radius: 6px;
   width: 200px;
   font-weight: 600;
+  width: 100%;
+  min-width: 200px;
 }
 
-button:hover {
+.open-modal-button:hover {
   background-color: #2574f4;
   cursor: pointer;
 }

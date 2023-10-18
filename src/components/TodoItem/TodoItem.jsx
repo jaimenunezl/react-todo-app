@@ -1,14 +1,11 @@
-import React from 'react';
+import { useContext } from 'react';
+import { TodoContext } from '../../contexts';
 
 import './TodoItem.css';
 
-const TodoItem = ({
-  id,
-  text,
-  completed,
-  handleRemoveTodo,
-  handleCompleteTodo,
-}) => {
+function TodoItem({ id, text, completed }) {
+  const { handleCompleteTodo, handleRemoveTodo } = useContext(TodoContext);
+
   return (
     <li className={completed ? 'completed' : null}>
       <span className="checkbox" onClick={() => handleCompleteTodo(id)}></span>
@@ -18,6 +15,6 @@ const TodoItem = ({
       </span>
     </li>
   );
-};
+}
 
 export { TodoItem };

@@ -1,11 +1,15 @@
-import { React, useState, useEffect, useRef } from 'react';
+import { React, useState, useEffect, useRef, useContext } from 'react';
+
+import { TodoContext } from '../../contexts';
 
 import './TodoSearch.css';
 
-const TodoSearch = ({ handleSearchValue }) => {
+const TodoSearch = () => {
   const [searchValue, setSearchValue] = useState('');
   const [hasError, setHasError] = useState(null);
   const isFirstSearch = useRef(true);
+
+  const { handleSearchValue } = useContext(TodoContext);
 
   useEffect(() => {
     if (isFirstSearch.current) {
@@ -36,10 +40,6 @@ const TodoSearch = ({ handleSearchValue }) => {
         placeholder="Estudiar React JS"
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
-        style={{
-          border: '2px solid transparent',
-          borderColor: hasError ? '#ff000040' : '#eaf1fb',
-        }}
       />
 
       {hasError && <p style={{ color: 'red' }}>{hasError}</p>}

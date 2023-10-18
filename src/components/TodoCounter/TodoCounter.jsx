@@ -1,6 +1,14 @@
+import { useContext } from 'react';
+import { TodoContext } from '../../contexts';
+
 import './TodoCounter.css';
 
-function TodoCounter({ total, completed }) {
+function TodoCounter() {
+  const { todoList } = useContext(TodoContext);
+
+  const completed = todoList.filter(({ completed }) => completed).length;
+  const total = todoList.length;
+
   return (
     <>
       {completed >= total ? (

@@ -1,39 +1,55 @@
-import { React, useState } from 'react';
+import { React, useState, useContext } from 'react';
+import { TodoContext } from '../../contexts';
 
 import './TodoAddModal.css';
 
-const TodoAddModal = ({ handleAddTodo, handleCloseModal }) => {
-  const [text, setText] = useState(null);
+const TodoAddModal = () => {
+  const [text, setText] = useState('');
+  const { handleAddTodo, toggleModal } = useContext(TodoContext);
+
+  const handleSaveButton = () => {
+    if (text.length === 0) return;
+
+    handleAddTodo(text);
+    setText('');
+    toggleModal();
+  };
+
+  const handleCloseButton = () => {
+    setText('');
+    toggleModal();
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      handleAddTodo(text);
+      setTimeout(() => {
+        handleSaveButton();
+      }, 100);
     }
   };
 
   return (
-    <>
-      <div className="modal-container">
-        <div className="modal-form">
-          <input
-            className="new-todo-input"
-            type="text"
-            placeholder="Estudiar ReactJS"
-            onChange={(e) => setText(e.target.value)}
-            onKeyDown={(e) => handleKeyDown(e)}
-          />
+    <dialog id="add-todo-modal">
+      <div className="modal-form">
+        <input
+          className="new-todo-input"
+          type="text"
+          placeholder="Estudiar ReactJS"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => handleKeyDown(e)}
+        />
 
-          <div className="action-container">
-            <button className="save-todo" onClick={() => handleAddTodo(text)}>
-              Guardar
-            </button>
-            <button className="close-modal" onClick={() => handleCloseModal()}>
-              Cancelar
-            </button>
-          </div>
+        <div className="action-container">
+          <button className="save-todo" onClick={() => handleSaveButton()}>
+            Guardar
+          </button>
+          <button className="close-modal" onClick={() => handleCloseButton()}>
+            Cancelar
+          </button>
         </div>
       </div>
-    </>
+    </dialog>
   );
 };
 

@@ -1,17 +1,20 @@
 .search {
-  display: block;
   padding: 20px 20px;
   border-radius: 9px;
-  background-color: #eaf1fb;
-  border: 0px;
-  width: 80%;
+  width: 100%;
   font-size: 1rem;
-  color: #5e5e5e;
   outline: none;
   transition: transform 0.2s ease-in-out;
+  margin: 10px 0px 0px;
+  box-sizing: border-box;
 }
 
 .search:focus {
   transform: scale(1.05);
-  background-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .search {
+    margin: 0px;
+  }
 }

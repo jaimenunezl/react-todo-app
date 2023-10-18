@@ -1,59 +1,20 @@
-.modal-container {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  background-color: #00000060;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .modal-form {
-  background-color: white;
-  width: 90%;
-  max-width: 500px;
-  padding: 50px;
-  border-radius: 5px;
   display: flex;
+  padding: 40px;
   flex-direction: column;
   align-items: center;
 }
 
 .new-todo-input {
-  display: block;
   padding: 20px 20px;
-  border-radius: 9px;
-  background-color: #eaf1fb;
-  border: 0px;
   width: 80%;
-  font-size: 1rem;
-  color: #5e5e5e;
 }
 
 .action-container {
   display: flex;
   gap: 6px;
-
-  button:hover {
-    cursor: pointer;
-  }
 }
 
-.save-todo {
+.action-container button {
   margin-top: 20px;
-}
-
-.save-todo:hover {
-  background-color: #1e8e3e;
-}
-
-.close-modal {
-  margin-top: 20px;
-  background-color: #d32f2f;
-}
-
-.close-modal:hover {
-  background-color: #b71c1c;
 }
