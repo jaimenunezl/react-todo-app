@@ -18,7 +18,18 @@ function AppUI() {
         <header>
           <h1>Tareas</h1>
         </header>
-        <TodoButton />
+        <main>
+          <TodoButton />
+        </main>
+        <footer>
+          <a
+            href="https://github.com/jaimenunezl"
+            target="_blank"
+            rel="noreferrer noopener nofollow"
+          >
+            Made by Jaime Núñez
+          </a>
+        </footer>
       </aside>
 
       <section>
