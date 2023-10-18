@@ -34,6 +34,7 @@ const TodoAddModal = () => {
         <input
           className="new-todo-input"
           type="text"
+          autofocus
           placeholder="Estudiar ReactJS"
           value={text}
           onChange={(e) => setText(e.target.value)}

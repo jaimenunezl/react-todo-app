@@ -5,16 +5,9 @@
   font-size: 1rem;
   outline: none;
   transition: transform 0.2s ease-in-out;
-  margin: 10px 0px 0px;
   box-sizing: border-box;
 }
 
 .search:focus {
   transform: scale(1.05);
-}
-
-@media (min-width: 768px) {
-  .search {
-    margin: 0px;
-  }
 }
