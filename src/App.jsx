@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 import {
   TodoAddModal,
@@ -22,10 +22,21 @@ function App() {
   );
   const [searchValue, setSearchValue] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearchValue = (text) => {
-    setSearchValue(text);
-  };
+  const isCountingDown = useRef();
+
+  const handleSearchValue = useCallback((text) => {
+    setIsLoading(true);
+
+    if (isCountingDown.current) clearTimeout(isCountingDown.current);
+
+    isCountingDown.current = setTimeout(() => {
+      setSearchValue(text);
+      setIsLoading(false);
+      isCountingDown.current = null;
+    }, 2000);
+  }, []);
 
   const handleRemoveTodo = (id) => {
     const newList = todoList.filter(({ id: todoId }) => todoId !== id);
@@ -44,11 +55,6 @@ function App() {
   };
 
   const handleAddTodo = (text) => {
-    if (!text) {
-      alert('El campo no puede estar vacío');
-      return;
-    }
-
     const newTodo = {
       id: crypto.randomUUID(),
       text,
@@ -56,17 +62,16 @@ function App() {
     };
     const newList = [newTodo, ...todoList];
     updateTodoList(newList);
-    handleCloseModal();
+    toggleModal();
   };
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   return (
     <>
       <main>
         <aside>
-          <TodoButton handleOpenModal={handleOpenModal} />
+          <TodoButton handleOpenModal={toggleModal} />
         </aside>
 
         <section>
@@ -74,40 +79,43 @@ function App() {
             <h1>TODO List</h1>
           </header>
 
-          <TodoSearch
-            searchValue={searchValue}
-            handleSearchValue={handleSearchValue}
-          />
+          <TodoSearch handleSearchValue={handleSearchValue} />
 
           <TodoCounter
             completed={todoList.filter(({ completed }) => completed).length}
             total={todoList.length}
           />
 
-          <TodoList>
-            {todoList
-              .filter(({ text }) =>
-                text.toLowerCase().includes(searchValue.toLowerCase())
-              )
-              .sort((a, b) => a.completed - b.completed)
-              .sort((a, b) => a.text - b.text)
-              .map(({ id, text, completed }) => (
-                <TodoItem
-                  key={id}
-                  id={id}
-                  text={text}
-                  completed={completed}
-                  handleRemoveTodo={handleRemoveTodo}
-                  handleCompleteTodo={handleCompleteTodo}
-                />
-              ))}
-          </TodoList>
+          {isLoading ? (
+            <>
+              <img className="loading" src="loading.svg" alt="cargando" />
+            </>
+          ) : (
+            <TodoList hasSearch={searchValue.length > 0}>
+              {todoList
+                .filter(({ text }) =>
+                  text.toLowerCase().includes(searchValue.toLowerCase())
+                )
+                .sort((a, b) => a.completed - b.completed)
+                .sort((a, b) => a.text - b.text)
+                .map(({ id, text, completed }) => (
+                  <TodoItem
+                    key={id}
+                    id={id}
+                    text={text}
+                    completed={completed}
+                    handleRemoveTodo={handleRemoveTodo}
+                    handleCompleteTodo={handleCompleteTodo}
+                  />
+                ))}
+            </TodoList>
+          )}
         </section>
 
         {isModalOpen ? (
           <TodoAddModal
             handleAddTodo={handleAddTodo}
-            handleCloseModal={handleCloseModal}
+            handleCloseModal={toggleModal}
           />
         ) : null}
       </main>

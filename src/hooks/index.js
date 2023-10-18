@@ -1,1 +1,1 @@
-export * from './db.hook';
+export * from './useDB.hook';

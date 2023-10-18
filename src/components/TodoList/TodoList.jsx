@@ -2,7 +2,7 @@ import React from 'react';
 
 import './TodoList.css';
 
-const TodoList = ({ children }) => {
+const TodoList = ({ children, hasSearch }) => {
   return (
     <div className="list-container">
       {children.length ? (
@@ -10,7 +10,7 @@ const TodoList = ({ children }) => {
           {children}
         </ul>
       ) : (
-        <p>Comienza agregando un TODO</p>
+        <p>{hasSearch ? 'No hay resultados' : 'Comienza agregando un TODO'}</p>
       )}
     </div>
   );
