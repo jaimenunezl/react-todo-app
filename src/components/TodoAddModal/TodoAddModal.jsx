@@ -31,9 +31,8 @@ const TodoAddModal = () => {
   return (
     <dialog id="add-todo-modal">
       <div className="modal-form">
-        <input
+        <textarea
           className="new-todo-input"
-          type="text"
           autofocus
           placeholder="Estudiar ReactJS"
           value={text}

@@ -4,20 +4,19 @@
   background-color: #f6f8fc;
   flex-grow: 1;
   width: 100%;
-  border-radius: 30px;
+  border-radius: 8px;
   overflow: auto;
   padding: 20px;
   box-sizing: border-box;
 }
 
 ul {
-  list-style: none;
-  margin: 10px 0px;
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 10px;
+  gap: 8px;
   padding: 0px;
+  justify-content: flex-start;
 }
 
 @media (prefers-color-scheme: dark) {
