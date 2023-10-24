@@ -1,11 +1,12 @@
-import { useContext } from 'react';
-import { TodoContext } from '../../contexts';
-
 import './TodoItem.css';
 
-function TodoItem({ id, text, completed }) {
-  const { handleCompleteTodo, handleRemoveTodo } = useContext(TodoContext);
-
+function TodoItem({
+  id,
+  text,
+  completed,
+  handleCompleteTodo,
+  handleRemoveTodo,
+}) {
   return (
     <li className={completed ? 'completed' : null}>
       <span className="checkbox" onClick={() => handleCompleteTodo(id)}></span>

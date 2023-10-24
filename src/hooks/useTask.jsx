@@ -1,10 +1,9 @@
-import { createContext, useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
+
 import { LIST_V1 } from '../const';
-import { useDB } from '../hooks';
+import { useDB } from '.';
 
-export const TodoContext = createContext();
-
-export function TodoProvider({ children }) {
+export function useTask() {
   const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { item: todoList, updateItem: updateTodoList } = useDB(LIST_V1, []);
@@ -54,20 +53,14 @@ export function TodoProvider({ children }) {
     modal.open ? modal.close() : modal.showModal();
   }, []);
 
-  return (
-    <TodoContext.Provider
-      value={{
-        todoList,
-        searchValue,
-        isLoading,
-        handleSearchValue,
-        handleRemoveTodo,
-        handleCompleteTodo,
-        handleAddTodo,
-        toggleModal,
-      }}
-    >
-      {children}
-    </TodoContext.Provider>
-  );
+  return {
+    todoList,
+    searchValue,
+    isLoading,
+    handleSearchValue,
+    handleRemoveTodo,
+    handleCompleteTodo,
+    handleAddTodo,
+    toggleModal,
+  };
 }

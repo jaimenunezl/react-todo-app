@@ -1,11 +1,9 @@
-import { React, useState, useContext } from 'react';
-import { TodoContext } from '../../contexts';
+import { React, useState } from 'react';
 
 import './TodoAddModal.css';
 
-const TodoAddModal = () => {
+const TodoAddModal = ({ handleAddTodo, toggleModal }) => {
   const [text, setText] = useState('');
-  const { handleAddTodo, toggleModal } = useContext(TodoContext);
 
   const handleSaveButton = () => {
     if (text.length === 0) return;
@@ -33,7 +31,7 @@ const TodoAddModal = () => {
       <div className="modal-form">
         <textarea
           className="new-todo-input"
-          autofocus
+          autoFocus
           placeholder="Estudiar ReactJS"
           value={text}
           onChange={(e) => setText(e.target.value)}

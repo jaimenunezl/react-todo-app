@@ -1,16 +1,31 @@
-import { TodoProvider } from './contexts';
-
 import {
   TodoAddModal,
   TodoButton,
   TodoCounter,
-  TodoList,
+  TodoItemWithLoading,
   TodoSearch,
+  TodoItem,
 } from './components';
 
 import './App.css';
+import { useTask } from './hooks';
 
 function AppUI() {
+  const {
+    toggleModal,
+    handleSearchValue,
+    searchValue,
+    todoList,
+    handleAddTodo,
+    handleCompleteTodo,
+    isLoading,
+    handleRemoveTodo,
+  } = useTask();
+
+  const listFiltered = todoList.filter(({ text }) =>
+    text.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
   return (
     <div className="container">
       <aside>
@@ -19,7 +34,7 @@ function AppUI() {
           <h1>Tareas</h1>
         </header>
         <main>
-          <TodoButton />
+          <TodoButton toggleModal={toggleModal} />
         </main>
         <footer>
           <a
@@ -33,24 +48,38 @@ function AppUI() {
       </aside>
 
       <section>
-        <TodoSearch />
+        <TodoSearch handleSearchValue={handleSearchValue} />
 
-        <TodoCounter />
+        <TodoCounter todoList={todoList} />
 
-        <TodoList></TodoList>
+        <TodoItemWithLoading
+          isLoading={isLoading}
+          todoList={listFiltered}
+          searchValue={searchValue}
+        >
+          {listFiltered
+            .sort((a, b) => a.completed - b.completed)
+            .sort((a, b) => a.text - b.text)
+            .map(({ id, text, completed }) => (
+              <TodoItem
+                key={id}
+                id={id}
+                text={text}
+                completed={completed}
+                handleCompleteTodo={handleCompleteTodo}
+                handleRemoveTodo={handleRemoveTodo}
+              />
+            ))}
+        </TodoItemWithLoading>
       </section>
 
-      <TodoAddModal />
+      <TodoAddModal handleAddTodo={handleAddTodo} toggleModal={toggleModal} />
     </div>
   );
 }
 
 function App() {
-  return (
-    <TodoProvider>
-      <AppUI />
-    </TodoProvider>
-  );
+  return <AppUI />;
 }
 
 export default App;

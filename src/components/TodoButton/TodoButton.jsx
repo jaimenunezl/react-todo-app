@@ -1,11 +1,6 @@
-import { useContext } from 'react';
-import { TodoContext } from '../../contexts';
-
 import './TodoButton.css';
 
-const TodoButton = () => {
-  const { toggleModal } = useContext(TodoContext);
-
+const TodoButton = ({ toggleModal }) => {
   return (
     <button className="open-modal-button" onClick={() => toggleModal()}>
       + Agregar

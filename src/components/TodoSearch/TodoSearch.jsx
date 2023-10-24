@@ -1,15 +1,11 @@
-import { React, useState, useEffect, useRef, useContext } from 'react';
-
-import { TodoContext } from '../../contexts';
+import { React, useState, useEffect, useRef } from 'react';
 
 import './TodoSearch.css';
 
-const TodoSearch = () => {
+const TodoSearch = ({ handleSearchValue }) => {
   const [searchValue, setSearchValue] = useState('');
   const [hasError, setHasError] = useState(null);
   const isFirstSearch = useRef(true);
-
-  const { handleSearchValue } = useContext(TodoContext);
 
   useEffect(() => {
     if (isFirstSearch.current) {

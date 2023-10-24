@@ -1,7 +1,13 @@
 import './Spinner.css';
 
 function Spinner() {
-  return <img src="loading.svg" alt="Loading" className="spinner" />;
+  return (
+    <img
+      src={process.env.PUBLIC_URL + '/loading.svg'}
+      alt="Loading"
+      className="spinner"
+    />
+  );
 }
 
 export { Spinner };
