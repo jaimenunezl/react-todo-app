@@ -1,2 +1,2 @@
-export * from './useDB';
+export * from './useLocalStorage';
 export * from './useTask';

@@ -1,23 +1,23 @@
 import { useCallback, useRef, useState } from 'react';
 
+import { useLocalStorage } from '.';
 import { LIST_V1 } from '../const';
-import { useDB } from '.';
 
 export function useTask() {
   const [searchValue, setSearchValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const { item: todoList, updateItem: updateTodoList } = useDB(LIST_V1, []);
+  const {
+    item: todoList,
+    updateItem: updateTodoList,
+    isLoading,
+  } = useLocalStorage(LIST_V1, []);
 
   const isCountingDown = useRef();
 
   const handleSearchValue = useCallback((text) => {
-    setIsLoading(true);
-
     if (isCountingDown.current) clearTimeout(isCountingDown.current);
 
     isCountingDown.current = setTimeout(() => {
       setSearchValue(text);
-      setIsLoading(false);
       isCountingDown.current = null;
     }, 500);
   }, []);
@@ -44,14 +44,23 @@ export function useTask() {
       text,
       completed: false,
     };
-    const newList = [newTodo, ...todoList];
+
+    const newList = [...todoList, newTodo];
+
     updateTodoList(newList);
   };
 
-  const toggleModal = useCallback(() => {
-    const modal = document.getElementById('add-todo-modal');
-    modal.open ? modal.close() : modal.showModal();
-  }, []);
+  const handleEditTodo = (id, text) => {
+    const newList = todoList.map((todo) => {
+      if (todo.id !== id) return todo;
+
+      return {
+        ...todo,
+        text,
+      };
+    });
+    updateTodoList(newList);
+  };
 
   return {
     todoList,
@@ -59,8 +68,8 @@ export function useTask() {
     isLoading,
     handleSearchValue,
     handleRemoveTodo,
+    handleEditTodo,
     handleCompleteTodo,
     handleAddTodo,
-    toggleModal,
   };
 }

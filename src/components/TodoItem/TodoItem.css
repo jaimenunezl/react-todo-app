@@ -42,14 +42,26 @@ li.completed {
   }
 }
 
-.close {
-  background-color: #f44336;
+.item-button {
   font-size: 0.8rem;
   padding: 4px 8px;
   border-radius: 6px;
 }
 
+.close {
+  background-color: #f44336;
+}
+
 .close:hover {
   background-color: #d32f2f;
+  cursor: pointer;
+}
+
+.edit {
+  background-color: #4286f4;
+}
+
+.edit:hover {
+  background-color: #3c29ca;
   cursor: pointer;
 }

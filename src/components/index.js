@@ -1,5 +1,4 @@
 export * from './Spinner/Spinner';
-export * from './TodoAddModal/TodoAddModal';
 export * from './TodoButton/TodoButton';
 export * from './TodoCounter/TodoCounter';
 export * from './TodoItem/TodoItem';
